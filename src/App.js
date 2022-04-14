@@ -5,9 +5,10 @@ import twitterLogo from "./assets/twitter-logo.svg";
 
 import myEpicNft from "./utils/MyEpicNFT.json";
 
-const TWITTER_HANDLE = "_buildspace";
+const TWITTER_HANDLE = "TheOpCoder";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
-const OPENSEA_LINK = "";
+const OPENSEA_LINK =
+    "https://testnets.opensea.io/collection/epicnft-tri3nryjsg";
 const TOTAL_MINT_COUNT = 50;
 
 const CONTRACT_ADDRESS = "0x645339b02c7C2461926a69532dd365dD4C50CF66";
@@ -49,6 +50,16 @@ const App = () => {
 
             if (!ethereum) {
                 alert("Get MetaMask!");
+                return;
+            }
+
+            let chainId = await ethereum.request({ method: "eth_chainId" });
+            console.log("Connected to chain " + chainId);
+
+            // String, hex code of the chainId of the Rinkebey test network
+            const rinkebyChainId = "0x4";
+            if (chainId !== rinkebyChainId) {
+                alert("You are not connected to the Rinkeby Test Network!");
                 return;
             }
 
@@ -143,7 +154,7 @@ const App = () => {
             onClick={connectWallet}
             className="cta-button connect-wallet-button"
         >
-            Connect to Wallet
+            Connect Wallet
         </button>
     );
 
@@ -152,7 +163,7 @@ const App = () => {
             onClick={askContractToMintNft}
             className="cta-button connect-wallet-button"
         >
-            Mint NFT
+            Mint an NFT
         </button>
     );
 
@@ -164,6 +175,13 @@ const App = () => {
                     <p className="sub-text">
                         Each unique. Each beautiful. Discover your NFT today.
                     </p>
+                    <button
+                        className="opensea-button cta-button"
+                        onClick={() => window.open(OPENSEA_LINK)}
+                    >
+                        🌊 View Collection on OpenSea
+                    </button>
+                    <br />
                     {currentAccount === ""
                         ? renderNotConnectedContainer()
                         : renderMintUI()}
