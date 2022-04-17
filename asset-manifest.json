@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/EpicNFT-Frontend/static/css/main.2a380735.chunk.css",
-    "main.js": "/EpicNFT-Frontend/static/js/main.4cd3e17c.chunk.js",
-    "main.js.map": "/EpicNFT-Frontend/static/js/main.4cd3e17c.chunk.js.map",
+    "main.js": "/EpicNFT-Frontend/static/js/main.f6fad641.chunk.js",
+    "main.js.map": "/EpicNFT-Frontend/static/js/main.f6fad641.chunk.js.map",
     "runtime-main.js": "/EpicNFT-Frontend/static/js/runtime-main.43c5d4fa.js",
     "runtime-main.js.map": "/EpicNFT-Frontend/static/js/runtime-main.43c5d4fa.js.map",
-    "static/js/2.bed9797e.chunk.js": "/EpicNFT-Frontend/static/js/2.bed9797e.chunk.js",
-    "static/js/2.bed9797e.chunk.js.map": "/EpicNFT-Frontend/static/js/2.bed9797e.chunk.js.map",
+    "static/js/2.3406a985.chunk.js": "/EpicNFT-Frontend/static/js/2.3406a985.chunk.js",
+    "static/js/2.3406a985.chunk.js.map": "/EpicNFT-Frontend/static/js/2.3406a985.chunk.js.map",
     "index.html": "/EpicNFT-Frontend/index.html",
     "static/css/main.2a380735.chunk.css.map": "/EpicNFT-Frontend/static/css/main.2a380735.chunk.css.map",
-    "static/js/2.bed9797e.chunk.js.LICENSE.txt": "/EpicNFT-Frontend/static/js/2.bed9797e.chunk.js.LICENSE.txt",
+    "static/js/2.3406a985.chunk.js.LICENSE.txt": "/EpicNFT-Frontend/static/js/2.3406a985.chunk.js.LICENSE.txt",
     "static/media/twitter-logo.a8a75254.svg": "/EpicNFT-Frontend/static/media/twitter-logo.a8a75254.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.43c5d4fa.js",
-    "static/js/2.bed9797e.chunk.js",
+    "static/js/2.3406a985.chunk.js",
     "static/css/main.2a380735.chunk.css",
-    "static/js/main.4cd3e17c.chunk.js"
+    "static/js/main.f6fad641.chunk.js"
   ]
 }
