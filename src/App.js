@@ -9,12 +9,14 @@ const TWITTER_HANDLE = "TheOpCoder";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK =
     "https://testnets.opensea.io/collection/epicnft-tri3nryjsg";
-const TOTAL_MINT_COUNT = 50;
+const TOTAL_MINT_COUNT = 30;
 
-const CONTRACT_ADDRESS = "0x645339b02c7C2461926a69532dd365dD4C50CF66";
+const CONTRACT_ADDRESS = "0x23916bC5250af3b4F6FD35F7FC39D0cb897BAEC4";
 
 const App = () => {
     const [currentAccount, setCurrentAccount] = useState("");
+
+    const [nftCount, setNftCount] = useState(0);
 
     const checkIfWalletIsConnected = async () => {
         const { ethereum } = window;
@@ -102,6 +104,7 @@ const App = () => {
                     alert(
                         `Hey there! We've minted your NFT and sent it to your wallet. It may be blank right now. It can take a max of 10 min to show up on OpenSea. Here's the link: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`
                     );
+                    getNftCount();
                 });
 
                 console.log("Setup event listener!");
@@ -126,6 +129,16 @@ const App = () => {
                     signer
                 );
 
+                const currNftCountTxn =
+                    await connectedContract.getTotalNFTsMintedSoFar();
+                const currNftCount = currNftCountTxn.toNumber();
+                setNftCount(currNftCount);
+
+                if (currNftCount >= TOTAL_MINT_COUNT) {
+                    console.log("Cannot mint more NFTS!");
+                    return;
+                }
+
                 console.log("Going to pop wallet now to pay gas...");
                 let nftTxn = await connectedContract.makeAnEpicNFT();
 
@@ -144,8 +157,38 @@ const App = () => {
         }
     };
 
+    const getNftCount = async () => {
+        try {
+            const { ethereum } = window;
+
+            if (ethereum) {
+                const provider = new ethers.providers.Web3Provider(ethereum);
+                const signer = provider.getSigner();
+                const connectedContract = new ethers.Contract(
+                    CONTRACT_ADDRESS,
+                    myEpicNft.abi,
+                    signer
+                );
+
+                const currNftCountTxn =
+                    await connectedContract.getTotalNFTsMintedSoFar();
+                const currNftCount = currNftCountTxn.toNumber();
+                setNftCount(currNftCount);
+                console.log(currNftCount);
+            } else {
+                console.log("Ethereum object doesn't exist!");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         checkIfWalletIsConnected();
+    }, []);
+
+    useEffect(() => {
+        getNftCount();
     }, []);
 
     // Render Methods
@@ -162,8 +205,9 @@ const App = () => {
         <button
             onClick={askContractToMintNft}
             className="cta-button connect-wallet-button"
+            disabled={nftCount >= TOTAL_MINT_COUNT}
         >
-            Mint an NFT
+            {nftCount >= TOTAL_MINT_COUNT ? "Max NFTs Minted:(" : "Mint an NFT"}
         </button>
     );
 
@@ -174,6 +218,9 @@ const App = () => {
                     <p className="header gradient-text">My NFT Collection</p>
                     <p className="sub-text">
                         Each unique. Each beautiful. Discover your NFT today.
+                    </p>
+                    <p className="sub-text">
+                        Total NFTs Minted: {nftCount}/{TOTAL_MINT_COUNT}
                     </p>
                     <button
                         className="opensea-button cta-button"
